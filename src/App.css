@@ -1,33 +1,321 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
   min-height: 100vh;
+  background-color: #53bdb5;
   display: flex;
   flex-direction: column;
+  font-family: 'Work Sans', sans-serif;
+}
+
+.App > .header {
+  display: flex;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #f5f5f5;
+  font-family: 'Raleway', sans-serif;
 }
 
-.App-link {
-  color: #61dafb;
+.App > .contents {
+  flex: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App > .footer {
+  padding: 10px;
+  margin-top: 20px;
+  text-align: center;
+  font-family: Helvetica;
+  font-size: 10px;
+  color: #dbf1ef;
+}
+
+
+.Collection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: calc(100% - 2em);
+  max-width: 32em;
+  transition: all ease-out 200ms;
+}
+
+.ListTable {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
+  border-radius: .5em;
+}
+.ListTablePlaceholder {
+  color: rgba(0, 0, 0, 0.05);
+  font-weight: 900;
+  font-size: 2em;
+}
+
+.ListAdd {
+  background: #dbf1ef;
+  width: 3em;
+  height: 3em;
+  border-radius: 999px;
+  margin-top: 1.5em;
+  cursor: pointer;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  transition: all ease-out 200ms;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
+  position: relative;
+}
+.ListAdd:hover {
+  background: #b2e0dc;
+  transition: all ease-out 300ms;
+  width: 8.75em;
+}
+.ListAdd > .label {
+  color: #3c3c3c;
+  font-family: "Work Sans";
+  overflow: hidden;
+  white-space: nowrap;
+  font-weight: 600;
+  padding: 0 1em;
+  opacity: 0;
+}
+.ListAdd:hover > .label {
+  opacity: 1;
+}
+.ListAdd > .plus {
+  position: absolute;
+  right: 0;
+  width: 3em;
+  height: 3em;
+  background: inherit;
+  border-radius: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ListAdd > .plus > * {
+  background: #53bdb5;
+  position: absolute;
+  height: 1.75em;
+  width: .45em;
+}
+.ListAdd > .plus > .v {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12) inset;
+  z-index: 2;
+}
+.ListAdd > .plus > .h {
+  transform: rotate(90deg);
+  box-shadow: 2px 0 2px 0 rgba(0, 0, 0, 0.12) inset;
+  z-index: 1;
+}
+
+.ListRow {
+  display: flex;
+  flex-direction: row;
+  background: #dbf1ef;
+  padding: 1em;
+  border-bottom: 2px solid #b2e0dc;
+  color: #3c3c3c;
+  user-select: none;
+  cursor: pointer;
+  overflow: hidden;
+}
+.ListRow:first-child {
+  border-top-left-radius: .5em;
+  border-top-right-radius: .5em;
+  padding-top: calc(1em + 2px);
+}
+.ListRow:last-child {
+  border-bottom-left-radius: .5em;
+  border-bottom-right-radius: .5em;
+  border-bottom: none;
+  padding-bottom: calc(1em + 2px);
+}
+.ListRow:hover {
+  background: #b2e0dc;
+  transition: all ease-out 200ms;
+}
+.ListRow.list-item-exit-active {
+  transition: all 200ms ease-out;
+}
+.ListRow.list-item-exit {
+  height: 0;
+  padding: 0 1em;
+  border: none;
+}
+.ListRow.list-item-exit * {
+  color: transparent;
+}
+
+.ListRow > .name {
+  flex: auto;
+  font-weight: 600;
+  font-family: 'Work Sans', sans-serif;
+}
+.ListRow > .name > .count {
+  opacity: .5;
+  /* font-family: 'Roboto', sans-serif; */
+}
+
+.ListRow > .delete {
+  width: .75em;
+  transition: all ease-out 200ms;
+  position: relative;
+}
+.ListRow > .delete > .target {
+  width: 2em;
+  height: 2em;
+  position: absolute;
+  border-radius: 50%;
+  transform: translate(-.88em, -.38em);
+}
+.ListRow > .delete > .target:hover {
+  background: #dbf1ef;
+}
+.ListRow > .delete > .cross {
+  background: #b2e0dc;
+  position: absolute;
+  height: 1.25em;
+  width: .25em;
+  pointer-events: none;
+  transition: all ease-out 200ms;
+}
+.ListRow:hover > .delete > .cross {
+  background: #dbf1ef;
+}
+.ListRow:hover > .delete:hover > .cross {
+  background: #b2e0dc;
+}
+.ListRow > .delete > .cross.up {
+  transform: rotate(45deg);
+}
+.ListRow > .delete > .cross.down {
+  transform: rotate(-45deg);
+}
+
+
+.List {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 2em);
+  max-width: 32em;
+  background: #b2e0dc;
+  border-radius: .5em;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
+}
+.List > .header {
+  display: flex;
+  align-items: center;
+  background: #dbf1ef;
+  color: #3c3c3c;
+  padding: .75em 1em;
+  padding-top: calc(.75em + 2px);
+  border-bottom: 2px solid #b2e0dc;
+  border-top-left-radius: .5em;
+  border-top-right-radius: .5em;
+  user-select: none;
+}
+.List > .header > .back {
+  position: absolute;
+  border: .6em solid transparent;
+  border-right: 1em solid #53bdb5;
+  border-left-width: .2em;
+  cursor: pointer;
+}
+.List > .header > .Textbox {
+  font-weight: 600;
+  font-size: 1.25em;
+  width: 100%;
+  display: block;
+  text-align: center;
+  margin: 0 1.5em;
+  font-family: 'Work Sans', sans-serif;
+}
+
+.Item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 2.5em;
+  padding: 0 1em;
+  color: #3c3c3c;
+  background: #dbf1ef;
+  user-select: none;
+}
+.Item:first-child {
+  padding-top: .5em;
+}
+.Item:last-child {
+  border-bottom-left-radius: .5em;
+  border-bottom-right-radius: .5em;
+  padding-bottom: .5em;
+}
+
+.Item > .Checkbox {
+  flex: 0;
+}
+.Item > .Textbox {
+  flex: auto;
+  cursor: text;
+  font-family: 'Work Sans', sans-serif;
+}
+
+
+.Checkbox {
+  min-width: 1.5em;
+  height: 1.5em;
+  margin-right: 1em;
+  cursor: pointer;
+  position: relative;
+}
+.Checkbox > .box {
+  content: "";
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border: 2px solid #53bdb5;
+  border-radius: 20%;
+  transition: all ease-out 200ms;
+  pointer-events: none;
+}
+.Checkbox:hover > .box {
+  background: #b2e0dc;
+}
+.Checkbox.checked > .box {
+  background: #53bdb5;
+  border-radius: 50%;
+}
+.Checkbox > .check {
+  content: "";
+  opacity: 0;
+  transform: rotate(-45deg);
+  transform-origin: bottom left;
+  height: .4em;
+  width: 2px;
+  border: 2px solid #dbf1ef;
+  border-top: none;
+  border-right: none;
+  transition: all ease-out 200ms;
+  position: absolute;
+  left: .55em;
+  top: .65em;
+}
+.Checkbox.checked > .check {
+  opacity: 1;
+  width: .8em;
+}
+
+.Textbox {
+  -webkit-appearance: none;
+  border-radius: 0;
+  border: none;
+  padding: 0;
+  background: none;
+  font-size: 1em;
+  width: 100%;
+  cursor: text;
 }
