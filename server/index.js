@@ -44,8 +44,8 @@ app.use('/public', express.static('public'));
 //     res.sendFile(path.resolve('./public/index.html'));
 // });
 
-// connect to database and start server
-db.connect('playground').then(() => {
+// start server
+db.connect('mongodb://localhost/todo', () => {
     app.listen(5000, () => {
         console.log('App started on port 5000');
     });

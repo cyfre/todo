@@ -1,44 +1,35 @@
+const { ObjectID } = require('mongodb');
 const util = require('../util.js');
-
-let lists = [
-    { _id: 1, name: "To Do", items: [1, 2, 3] },
-    { _id: 2, name: "Shopping List", items: [4, 5] },
-    { _id: 3, name: "Wishlist", items: [] },
-    { _id: 4, name: 'Fruits', items: [ 6, 7, 8, 9, 10 ] },
-    { _id: 5, name: 'Vegetables', items: [ 11, 12, 13, 14 ] },
-];
-let lastId = 8;
+const db = require('../db.js');
 
 async function getAll() {
-    return lists;
+    return db.collection('lists').find().toArray();
 }
 
 async function get(id) {
-    return lists.find(list => list._id == id);
+    return db.collection('lists').findOne({ _id: ObjectID(id)});
 }
 
 async function create(params) {
-    let list = {
-        _id: ++lastId,
+    let result = await db.collection('lists').insertOne({
         name: params.name,
         items: []
-    };
-    lists.push(list);
-    return list;
+    });
+    return get(result.insertedId);
 }
 
 async function update(id, updatedList) {
-    if (id != updatedList._id) throw Error('id mismatch');
-
-    let list = lists.find(list => list._id == updatedList._id);
-    util.update(list, updatedList);
-    return list;
+    updatedList._id = ObjectID(updatedList._id);
+    updatedList.items = updatedList.items.map(id => ObjectID(id));
+    return db.collection('lists').replaceOne(
+        { _id: ObjectID(id) },
+        { $set: updatedList }
+    );
 }
 
 async function remove(id) {
-    let i = lists.findIndex(list => list._id == id);
-    if (i !== -1) lists.splice(i, 1);
-    return lists;
+    await db.collection('items').deleteMany({ list: ObjectID(id) });
+    return db.collection('lists').deleteOne({ _id: ObjectID(id) });
 }
 
 module.exports = {

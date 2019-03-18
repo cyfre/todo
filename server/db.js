@@ -1,15 +1,18 @@
 const { MongoClient } = require('mongodb');
 
-let db;
-async function connect(db) {
-    MongoClient.connect('mongodb://localhost/' + db, { useNewUrlParser: true }).then(connection => {
-        db = connection.db(db);
-        return db;
+let client;
+
+function connect(url, callback) {
+    if (client) return callback(client);
+
+    MongoClient.connect(url, { useNewUrlParser: true }, (err, mongo_client) => {
+        client = mongo_client
+        callback(client);
     });
 }
 
 function collection(name) {
-    return db.collection(name);
+    return client.db().collection(name);
 }
 
 module.exports = {
