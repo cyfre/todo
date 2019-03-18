@@ -1,3 +1,18 @@
+# Todo List
+In the project directory:
+
+`mongod --dbpath=./data` (in separate window)
+
+`npm run db-init` (optional to reset db)
+
+`npm run dev-all`
+
+And open [http://localhost:3000](http://localhost:3000) 
+
+##
+
+#
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -66,4 +81,3 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-# todo
