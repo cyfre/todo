@@ -1,17 +1,13 @@
 const { ObjectID } = require('mongodb');
-const util = require('../util.js');
-const db = require('../db.js');
+const util = require('../util');
+const db = require('../db');
 
-async function getAll() {
-    return db.collection('lists').find().toArray();
-}
+const name = 'lists';
 
-async function get(id) {
-    return db.collection('lists').findOne({ _id: ObjectID(id)});
-}
+const get = util.genGet(name);
 
 async function create(params) {
-    let result = await db.collection('lists').insertOne({
+    let result = await db.collection(name).insertOne({
         name: params.name,
         items: []
     });
@@ -21,7 +17,8 @@ async function create(params) {
 async function update(id, updatedList) {
     updatedList._id = ObjectID(updatedList._id);
     updatedList.items = updatedList.items.map(id => ObjectID(id));
-    return db.collection('lists').replaceOne(
+
+    return db.collection(name).replaceOne(
         { _id: ObjectID(id) },
         { $set: updatedList }
     );
@@ -29,11 +26,11 @@ async function update(id, updatedList) {
 
 async function remove(id) {
     await db.collection('items').deleteMany({ list: ObjectID(id) });
-    return db.collection('lists').deleteOne({ _id: ObjectID(id) });
+    return db.collection(name).deleteOne({ _id: ObjectID(id) });
 }
 
 module.exports = {
-    getAll,
+    name,
     get,
     create,
     update,

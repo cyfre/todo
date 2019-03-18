@@ -1,18 +1,14 @@
 const { ObjectID } = require('mongodb');
-const util = require('../util.js');
-const db = require('../db.js');
+const util = require('../util');
+const db = require('../db');
 const lists = require('../lists');
 
-async function getAll() {
-    return db.collection('items').find().toArray();
-}
+const name = 'items';
 
-async function get(id) {
-    return db.collection('items').findOne({ _id: ObjectID(id)});
-}
+const get = util.genGet(name);
 
 async function create(params) {
-    let result = await db.collection('items').insertOne({
+    let result = await db.collection(name).insertOne({
         list: ObjectID(params.list),
         text: params.text
     });
@@ -22,8 +18,16 @@ async function create(params) {
 async function update(id, updatedItem) {
     updatedItem._id = ObjectID(updatedItem._id);
     updatedItem.list = ObjectID(updatedItem.list);
-    console.log(updatedItem);
-    return db.collection('items').replaceOne(
+
+    let list = await lists.model.get(updatedItem.list);
+    if (updatedItem.isCompleted) {
+        list.completed.push(updatedItem._id);
+    } else {
+        list.completed.splice(list.completed.findIndex(id => id === updatedItem._id), 1);
+    }
+    await lists.model.update(list._id, list);
+
+    return db.collection(name).replaceOne(
         { _id: ObjectID(id) },
         { $set: updatedItem }
     );
@@ -33,12 +37,12 @@ async function remove(id) {
     let item = await get(id);
     let list = await lists.model.get(item.list);
     list.items.splice(list.items.findIndex(id => id === item._id), 1);
-    await lists.model.update(item.list, list);
-    return db.collection('items').deleteOne({ _id: ObjectID(id)});
+    await lists.model.update(list._id, list);
+    return db.collection(name).deleteOne({ _id: ObjectID(id)});
 }
 
 module.exports = {
-    getAll,
+    name,
     get,
     create,
     update,

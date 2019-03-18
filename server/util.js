@@ -1,4 +1,6 @@
 const express = require('express');
+const db = require('./db');
+const { ObjectID } = require('mongodb');
 
 function update(target, source) {
     for (let prop in source) {
@@ -8,16 +10,28 @@ function update(target, source) {
     }
 }
 
+function genGetAll(name) {
+    return async () => {
+        return db.collection(name).find().toArray();
+    }
+}
+
+function genGet(name) {
+    return async (id) => {
+        return db.collection(name).findOne({ _id: ObjectID(id)});
+    }
+}
+
 function genModelRoutes(model) {
     const routes = express.Router();
 
     // route configs
     [{ 
         method: 'get', path: '/', 
-        modelFunc: req => model.getAll()
+        modelFunc: req => (model.getAll || genGetAll(model.name))()
     }, {
         method: 'get', path: '/:id', 
-        modelFunc: req => model.get(req.params.id)
+        modelFunc: req => (model.get || genGet(model.name))(req.params.id)
     }, {
         method: 'post', path: '/', 
         modelFunc: req => model.create(req.body)
@@ -44,5 +58,7 @@ function genModelRoutes(model) {
 
 module.exports = {
     update,
+    genGetAll,
+    genGet,
     genModelRoutes
 }

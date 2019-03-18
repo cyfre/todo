@@ -20,7 +20,6 @@ const open = (url, history) => {
     if (props) {
         let match = matchPath(url, props);
         props.load(match, data => {
-            // store[props.path] = data;
             loadedUrl = url;
             loadedData = data;
             document.loadedData = loadedData;
@@ -34,12 +33,10 @@ const open = (url, history) => {
 class Loader extends Component {
     constructor(props) {
         super(props);
-        // this.state = { isLoaded: Boolean(store[props.path]) }
         this.state = { isLoaded: props.match.url === loadedUrl  }
 
         if (!this.state.isLoaded) {
             props.component.load(this.props.match, data => {
-                // store[props.path] = data;
                 loadedUrl = props.match.url;
                 loadedData = data;
                 this.setState({ isLoaded: true });
@@ -48,7 +45,6 @@ class Loader extends Component {
     }
 
     render() {
-        // store[this.props.path]
         let LoadedComponent = this.props.component;
         return (
             <Fragment>

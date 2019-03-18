@@ -115,7 +115,6 @@ class List extends Component {
             <div className="List">
                 <div className="header">
                     <div className="back" onClick={() => { open('/', this.props.history) }}></div>
-                    {/* <Link className="back" to="/" /> */}
                     <Textbox value={this.state.list.name || "New List"} setValue={this.setNameValue}/>
                 </div>
                 <div className="ItemTable">

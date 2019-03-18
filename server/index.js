@@ -40,13 +40,14 @@ app.use('/api/lists', lists.routes);
 app.use('/api/items', items.routes);
 
 app.use('/public', express.static('public'));
-// app.get('*', (req, res) => {
-//     res.sendFile(path.resolve('./public/index.html'));
-// });
 
 // start server
-db.connect('mongodb://localhost/todo', () => {
-    app.listen(5000, () => {
-        console.log('App started on port 5000');
-    });
+db.connect('mongodb://localhost/todo', (err) => {
+    if (err) {
+        console.log(err);
+    } else {
+        app.listen(5000, () => {
+            console.log('App started on port 5000');
+        });
+    }
 });

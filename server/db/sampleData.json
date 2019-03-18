@@ -1,0 +1,124 @@
+{
+    "items": [
+        {
+            "_id": 1,
+            "list": 1,
+            "text": "grocery shopping",
+            "isCompleted": false
+        },
+        {
+            "_id": 2,
+            "list": 1,
+            "text": "take car in for service",
+            "isCompleted": false
+        },
+        {
+            "_id": 3,
+            "list": 1,
+            "text": "make app",
+            "isCompleted": false
+        },
+        {
+            "_id": 4,
+            "list": 2,
+            "text": "milk",
+            "isCompleted": false
+        },
+        {
+            "_id": 5,
+            "list": 2,
+            "text": "eggs",
+            "isCompleted": false
+        },
+        {
+            "_id": 6,
+            "list": 4,
+            "text": "apples"
+        },
+        {
+            "_id": 7,
+            "list": 4,
+            "text": "bananas"
+        },
+        {
+            "_id": 8,
+            "list": 4,
+            "text": "oranges"
+        },
+        {
+            "_id": 9,
+            "list": 4,
+            "text": "pears"
+        },
+        {
+            "_id": 10,
+            "list": 4,
+            "text": "plums"
+        },
+        {
+            "_id": 11,
+            "list": 5,
+            "text": "spinach"
+        },
+        {
+            "_id": 12,
+            "list": 5,
+            "text": "broccoli"
+        },
+        {
+            "_id": 13,
+            "list": 5,
+            "text": "cauliflower"
+        },
+        {
+            "_id": 14,
+            "list": 5,
+            "text": "brussel sprouts"
+        }
+    ],
+    "lists": [
+        {
+            "_id": 1,
+            "name": "To Do",
+            "items": [
+                1,
+                2,
+                3
+            ]
+        },
+        {
+            "_id": 2,
+            "name": "Shopping List",
+            "items": [
+                4,
+                5
+            ]
+        },
+        {
+            "_id": 3,
+            "name": "Wishlist",
+            "items": []
+        },
+        {
+            "_id": 4,
+            "name": "Fruits",
+            "items": [
+                6,
+                7,
+                8,
+                9,
+                10
+            ]
+        },
+        {
+            "_id": 5,
+            "name": "Vegetables",
+            "items": [
+                11,
+                12,
+                13,
+                14
+            ]
+        }
+    ]
+}

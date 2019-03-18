@@ -8,7 +8,7 @@ import Collection from 'lists/Collection';
 import List from 'lists/List';
 
 
-const NoMatch = () => <p>Page Not Found</p>;
+const NoMatch = () => <p class="not-found">Page Not Found</p>;
 
 const App = (props) => (
   <Router>
@@ -17,11 +17,6 @@ const App = (props) => (
             <h1>Lists</h1>
         </div>
         <div className="contents">
-          {/* <Switch>
-            <Route exact path="/" component={withRouter(withListStore(Collection))} />
-            <Route path="/lists/:id" component={withRouter(withListStore(List))} />
-            <Route path="*" component={NoMatch} />
-          </Switch> */}
           <Switch>
             <Route exact path="/" component={withLoader(Collection)} />
             <Route path="/lists/:id" component={withLoader(List)} />

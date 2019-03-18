@@ -18,7 +18,7 @@ const ListRow = (props) => {
 
     return (
         <div className="ListRow" onClick={handleOpen}>
-            <span className="name">{props.list.name || 'New List'} <span className="count">({props.list.items.length})</span></span>
+            <span className="name">{props.list.name || 'New List'} <span className="count">({props.list.items.length - props.list.completed.length})</span></span>
             <span className="delete">
                 <div className="target" onClick={handleDelete}></div>
                 <div className="cross down"></div>

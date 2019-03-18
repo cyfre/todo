@@ -22,12 +22,6 @@ class Item extends Component {
         this.loadData();
     }
 
-    componentWillUnmount() {
-        if (this.state.item.isCompleted) {
-            this.props.deleteItem(this.props.id);
-        }
-    }
-
     loadData() {
         api.read(`/items/${this.props.id}`, item => this.setState({ item }));
     }

@@ -1,6 +1,7 @@
 .App {
   min-height: 100vh;
   background-color: #53bdb5;
+  color: #f5f5f5;
   display: flex;
   flex-direction: column;
   font-family: 'Work Sans', sans-serif;
@@ -49,10 +50,11 @@
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
   border-radius: .5em;
 }
-.ListTablePlaceholder {
-  color: rgba(0, 0, 0, 0.05);
+.ListTablePlaceholder, .not-found {
+  color: rgba(0, 0, 0, 0.1);
   font-weight: 900;
   font-size: 2em;
+  font-family: 'Source Sans Pro';
 }
 
 .ListAdd {

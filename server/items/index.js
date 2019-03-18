@@ -1,4 +1,4 @@
-const util = require('../util.js');
+const util = require('../util');
 const model = require('./model');
 
 const routes = util.genModelRoutes(model);
