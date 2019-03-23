@@ -70,7 +70,8 @@ class Item extends Component {
                 <Textbox
                     value={(this.state.item || {text: ''}).text}
                     setValue={this.setTextValue}
-                    ref={this.textInput} />
+                    ref={this.textInput}
+                    selectAll={true} />
                 <span className="delete">
                     <div className="target" onClick={this.handleDelete}></div>
                     <div className="cross down"></div>
