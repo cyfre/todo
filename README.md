@@ -1,6 +1,8 @@
 # Todo List
 In the project directory:
 
+`npm install`
+
 `mongod --dbpath=./data` (in separate window)
 
 `npm run db-init` (optional to reset db)
