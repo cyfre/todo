@@ -36,11 +36,12 @@ ListRow.propTypes = {
 const ListAdd = (props) => {
     return (
         <div className="ListAdd" onClick={() => props.createList({})}>
-            <div className="label">New List</div>
+            
             <div className="plus">
                 <div className="v"></div>
                 <div className="h"></div>
             </div>
+            <div className="label">New List</div>
         </div>
     );
 };

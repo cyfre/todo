@@ -8,8 +8,8 @@ client.connect(async (err) => {
     await db.collection('lists').deleteMany({});
 
     let items = [
-        { text: "grocery shopping" },
-        { text: "get haircut" },
+        { text: "grocery shopping", isCompleted: true },
+        { text: "get haircut", isCompleted: true },
         { text: "take car in for service" },
         { text: "make app" },
         { text: "milk" },
@@ -27,7 +27,7 @@ client.connect(async (err) => {
     items.forEach((item, i) => item._id = ObjectID(i));
 
     let lists = [
-        { name: "To Do", items: [0, 1, 2, 3] },
+        { name: "To Do", items: [0, 1, 2, 3], completed: [items[1]._id, items[0]._id] },
         { name: "Shopping List", items: [4, 5] },
         { name: "Wishlist", items: [] },
         { name: 'Fruits', items: [6, 7, 8, 9, 10] },

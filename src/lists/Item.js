@@ -10,10 +10,14 @@ import Textbox from './Textbox';
 class Item extends Component {
     constructor(props) {
         super(props);
-        this.state = { item: props.item || {text: props.text || ''} };
+        this.state = {
+            item: props.item || {text: props.text || ''},
+            everIncomplete: (props.item ? !props.item.isCompleted : true)
+        };
 
         this.setCompletedValue = this.setCompletedValue.bind(this);
         this.setTextValue = this.setTextValue.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
 
         this.textInput = React.createRef();
     }
@@ -30,10 +34,15 @@ class Item extends Component {
         api.update(`/items/${this.props.id}`, this.state.item);
     }
 
+    handleDelete(e) {
+        e.stopPropagation();
+        this.props.deleteItem(this.props.id);
+    }
+
     setCompletedValue(value) {
         let item = this.state.item;
         item.isCompleted = value;
-        this.setState({ item });
+        this.setState({ item, everIncomplete: !item.isCompleted || this.state.everIncomplete });
         this.updateItem();
     }
 
@@ -56,12 +65,17 @@ class Item extends Component {
 
     render() {
         return (
-            <div className="Item">
+            <div className={this.state.everIncomplete ? 'Item incomplete' : 'Item completed'}>
                 <Checkbox checked={this.state.item.isCompleted || false} setChecked={this.setCompletedValue}/>
                 <Textbox
                     value={(this.state.item || {text: ''}).text}
                     setValue={this.setTextValue}
                     ref={this.textInput} />
+                <span className="delete">
+                    <div className="target" onClick={this.handleDelete}></div>
+                    <div className="cross down"></div>
+                    <div className="cross up"></div>
+                </span>
             </div>
         );
     }

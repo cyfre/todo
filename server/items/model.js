@@ -23,7 +23,7 @@ async function update(id, updatedItem) {
     if (updatedItem.isCompleted) {
         list.completed.push(updatedItem._id);
     } else {
-        list.completed.splice(list.completed.findIndex(id => id === updatedItem._id), 1);
+        list.completed = list.completed.filter(id => !id.equals(updatedItem._id));
     }
     await lists.model.update(list._id, list);
 
@@ -36,7 +36,8 @@ async function update(id, updatedItem) {
 async function remove(id) {
     let item = await get(id);
     let list = await lists.model.get(item.list);
-    list.items.splice(list.items.findIndex(id => id === item._id), 1);
+    list.items = list.items.filter(id => !id.equals(item._id));
+    list.completed = list.completed.filter(id => !id.equals(item._id));
     await lists.model.update(list._id, list);
     return db.collection(name).deleteOne({ _id: ObjectID(id)});
 }

@@ -38,7 +38,7 @@ Item.propTypes = {};
 class List extends Component {
     constructor(props) {
         super(props);
-        this.state = { list: props.data.list, focusNew: false, newItemText: '' };
+        this.state = { list: props.data.list, focusNew: false, newItemText: '', showCompleted: false };
 
         this.id = props.match.params.id;
         this.createItem = this.createItem.bind(this);
@@ -87,10 +87,10 @@ class List extends Component {
     }
 
     deleteItem(id) {
-        let i = this.state.list.items.findIndex(item => item === id);
-        this.state.list.items.splice(i, 1);
-        this.setState({ list: this.state.list, focusNew: false });
-        this.updateList();
+        let list = this.state.list;
+        list.items = this.state.list.items.filter(item => item !== id);
+        list.completed = this.state.list.completed.filter(item => item !== id);
+        this.setState({ list: list, focusNew: false });
         api.delete(`/items/${id}`);
     }
 
@@ -109,17 +109,30 @@ class List extends Component {
                 key={id} id={id} item={this.props.data.items[i]}
                 deleteItem={this.deleteItem}
                 text={i === this.state.list.items.length-1 ? this.state.newItemText : ''}
+                showCompleted={this.state.showCompleted}
             />
         )
         return (
-            <div className="List">
+            <div className={this.state.showCompleted ? "List" : "List hide-completed"}>
                 <div className="header">
                     <div className="back" onClick={() => { open('/', this.props.history) }}></div>
                     <Textbox value={this.state.list.name || "New List"} setValue={this.setNameValue}/>
                 </div>
-                <div className="ItemTable">
-                    {itemRows}
-                    <ItemAdd createItem={this.createItem} ref={this.newItem}/>
+                <div className="body">
+                    <div className="ItemTable">
+                        {itemRows}
+                        <ItemAdd createItem={this.createItem} ref={this.newItem}/>
+                    </div>
+                    {this.state.list.completed.length
+                        ?
+                        <div className="toggle-completed">
+                            <span className="text" onClick={() => { this.setState({showCompleted: !this.state.showCompleted, focusNew: false}) }}>
+                                {this.state.showCompleted ? 'Hide' : 'Show'} Completed
+                            </span>
+                        </div>
+                        :
+                        ''
+                    }
                 </div>
             </div>
         );

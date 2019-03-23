@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 
 import { withLoader }  from 'loader';
@@ -18,7 +18,8 @@ const App = (props) => (
         </div>
         <div className="contents">
           <Switch>
-            <Route exact path="/" component={withLoader(Collection)} />
+            <Redirect exact path="/" to="/lists" />
+            <Route exact path="/lists" component={withLoader(Collection)} />
             <Route path="/lists/:id" component={withLoader(List)} />
             <Route path="*" component={NoMatch} />
           </Switch>

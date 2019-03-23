@@ -50,7 +50,7 @@
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
   border-radius: .5em;
 }
-.ListTablePlaceholder, .not-found {
+.ListTablePlaceholder, .not-found, .loading {
   color: rgba(0, 0, 0, 0.1);
   font-weight: 900;
   font-size: 2em;
@@ -65,9 +65,9 @@
   margin-top: 1.5em;
   cursor: pointer;
   display: flex;
-  /* justify-content: center; */
+  justify-content: flex-end;
   align-items: center;
-  transition: all ease-out 200ms;
+  transition: all ease-out 300ms 200ms;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
   position: relative;
 }
@@ -84,13 +84,15 @@
   font-weight: 600;
   padding: 0 1em;
   opacity: 0;
+  transition: all ease-out 200ms;
 }
 .ListAdd:hover > .label {
   opacity: 1;
+  transition: all ease-out 200ms 300ms;
 }
 .ListAdd > .plus {
   position: absolute;
-  right: 0;
+  left: 0;
   width: 3em;
   height: 3em;
   background: inherit;
@@ -205,8 +207,9 @@
   flex-direction: column;
   width: calc(100% - 2em);
   max-width: 32em;
-  background: #b2e0dc;
+  background: #dbf1ef; /* #b2e0dc; */
   border-radius: .5em;
+  overflow: hidden;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
 }
 .List > .header {
@@ -238,6 +241,10 @@
   font-family: 'Work Sans', sans-serif;
 }
 
+.List > .body {
+  padding: .5em 0;
+}
+
 .Item {
   display: flex;
   flex-direction: row;
@@ -247,15 +254,63 @@
   color: #3c3c3c;
   background: #dbf1ef;
   user-select: none;
+  transition: height 200ms ease-out 0ms, opacity 200ms ease-out 200ms;
+  overflow: hidden;
+}
+.List.hide-completed .Item.completed {
+  height: 0;
+  opacity: 0;
+  transition: height 200ms ease-out 200ms, opacity 200ms ease-out 0ms;
 }
 .Item:first-child {
-  padding-top: .5em;
+  /* padding-top: .5em; */
 }
 .Item:last-child {
-  border-bottom-left-radius: .5em;
-  border-bottom-right-radius: .5em;
-  padding-bottom: .5em;
+  /* border-bottom-left-radius: .5em;
+  border-bottom-right-radius: .5em; */
+  /* padding-bottom: .5em; */
 }
+.Item > .delete {
+  width: .5em;
+  margin-left: 1em;
+  margin-right: .5em;
+  min-height: 1em;
+  transition: all ease-out 200ms;
+  position: relative;
+}
+.Item:last-child > .delete {
+  display: none;
+}
+.Item > .delete > .target {
+  width: 1.625em;
+  height: 1.625em;
+  position: absolute;
+  border-radius: 50%;
+  transform: translate(-0.7em, -.32em);
+  transition: all ease-out 200ms;
+  cursor: pointer;
+}
+.Item > .delete:hover > .target {
+  background: #b2e0dc;
+}
+.Item > .delete > .cross {
+  background: #b2e0dc;
+  position: absolute;
+  height: 1em;
+  width: .2em;
+  pointer-events: none;
+  transition: all ease-out 200ms;
+}
+.Item > .delete:hover > .cross {
+  background: #dbf1ef;
+}
+.Item > .delete > .cross.up {
+  transform: rotate(45deg);
+}
+.Item > .delete > .cross.down {
+  transform: rotate(-45deg);
+}
+
 
 .Item > .Checkbox {
   flex: 0;
@@ -264,6 +319,17 @@
   flex: auto;
   cursor: text;
   font-family: 'Work Sans', sans-serif;
+}
+
+.toggle-completed {
+  text-align: center;
+  font-size: .75em;
+}
+.toggle-completed > .text {
+  color: #53bdb5;
+  text-decoration: underline;
+  cursor: pointer;
+  user-select: none;
 }
 
 

@@ -50,7 +50,7 @@ class Loader extends Component {
             <Fragment>
                 { this.state.isLoaded
                     ? <LoadedComponent {...this.props.props} data={loadedData} />
-                    : <div>Loading</div>
+                    : ''
                 }
             </Fragment>
         )
