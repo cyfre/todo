@@ -56,7 +56,8 @@ class Textbox extends Component {
                 ref={this.input}
                 onKeyDown={this.handleKeyDown} onBlur={this.handleBlur} onChange={(e) => {
                     this.setState({value: e.target.value});
-                }}/>
+                }}
+                onFocus={this.props.selectAll ? e => e.target.select() : () => {}}/>
         );
     }
 }

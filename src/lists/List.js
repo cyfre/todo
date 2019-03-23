@@ -116,7 +116,7 @@ class List extends Component {
             <div className={this.state.showCompleted ? "List" : "List hide-completed"}>
                 <div className="header">
                     <div className="back" onClick={() => { open('/', this.props.history) }}></div>
-                    <Textbox value={this.state.list.name || "New List"} setValue={this.setNameValue}/>
+                    <Textbox value={this.state.list.name || "New List"} setValue={this.setNameValue} selectAll={true}/>
                 </div>
                 <div className="body">
                     <div className="ItemTable">
