@@ -391,6 +391,8 @@
   cursor: text;
   padding: .25em;
   border: 2px solid transparent;
+  border-left: none;
+  border-right: none;
   outline: none;
 }
 /* .Textbox:hover {
