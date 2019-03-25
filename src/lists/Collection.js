@@ -17,7 +17,7 @@ const ListRow = (props) => {
     }
 
     return (
-        <div className="ListRow" onClick={handleOpen}>
+        <div className="ListRow" draggable onClick={handleOpen}>
             <span className="name">{props.list.name || 'New List'} <span className="count">({props.list.items.length - props.list.completed.length})</span></span>
             <span className="delete">
                 <div className="target" onClick={handleDelete}></div>
@@ -96,7 +96,7 @@ class Collection extends Component {
                 </CSSTransition>
             ));
         return (
-            <div className="Collection">
+            <div className="Collection" onDragOver={(e) => e.preventDefault()}>
                 {listRows.length
                     ?   <div className="ListTable">
                             <TransitionGroup component={null}>{listRows}</TransitionGroup>
