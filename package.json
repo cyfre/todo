@@ -21,7 +21,7 @@
     "eject": "react-scripts eject",
     "server": "nodemon -w server server/index.js",
     "db-init": "node server/db/init.js",
-    "dev-all": "npm run server & npm start"
+    "dev-all": ": $(mongod --dbpath=./data) & npm start & npm run server"
   },
   "eslintConfig": {
     "extends": "react-app"
