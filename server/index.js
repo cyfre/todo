@@ -39,7 +39,11 @@ app.use('/api/users', users.routes);
 app.use('/api/lists', lists.routes);
 app.use('/api/items', items.routes);
 
-app.use('/public', express.static('public'));
+// production build
+app.use(express.static(path.join(__dirname, '..', 'build')));
+app.get('/*', function (req, res) {
+   res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
+});
 
 // start server
 db.connect('mongodb://localhost/todo', (err) => {
