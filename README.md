@@ -1,4 +1,6 @@
 # Todo List
+Prerequisites: Node.js (and npm), MongoDB
+
 In the project directory:
 
 `npm install`
