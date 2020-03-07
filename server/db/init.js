@@ -1,6 +1,9 @@
 const { MongoClient, ObjectID } = require('mongodb');
 
-let client = new MongoClient('mongodb://localhost/todo', { useNewUrlParser: true });
+let client = new MongoClient('mongodb://localhost/todo', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
 client.connect(async (err) => {
     let db = client.db('todo');
 

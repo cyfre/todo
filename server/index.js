@@ -46,12 +46,7 @@ app.get('/*', function (req, res) {
 });
 
 // start server
-db.connect('mongodb://localhost/todo', (err) => {
-    if (err) {
-        console.log(err);
-    } else {
-        app.listen(5000, () => {
-            console.log('App started on port 5000');
-        });
-    }
-});
+db.connect('mongodb://localhost/todo', (err) =>
+    err
+        ? console.log(err)
+        : app.listen(5000, () => console.log('App started on port 5000')));

@@ -6,27 +6,24 @@
     "cors": "^2.8.5",
     "express-session": "^1.15.6",
     "mongodb": "^3.1.13",
-    "nodemon": "^1.18.10",
+    "nodemon": "^2.0.2",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
-    "react-router": "^4.3.1",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.5",
-    "react-transition-group": "^2.6.0"
+    "react-router": "^5.1.2",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.0",
+    "react-transition-group": "^4.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-
     "db-up": ": $(mongod --dbpath=./data)",
     "db-down": ": $(mongo --eval \"db.getSiblingDB('admin').shutdownServer()\")",
     "db-init": "yarn db-up & sleep 1 && node server/db/init.js; yarn db-down",
-
     "server": "yarn db-up & nodemon -w server server/index.js",
-
-    "dev-all": "yarn start & yarn server"
+    "dev": "yarn start & yarn server"
   },
   "eslintConfig": {
     "extends": "react-app"

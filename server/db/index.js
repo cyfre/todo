@@ -5,7 +5,10 @@ let client;
 function connect(url, callback) {
     if (client) return callback();
 
-    MongoClient.connect(url, { useNewUrlParser: true }, (err, mongo_client) => {
+    MongoClient.connect(url, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    }, (err, mongo_client) => {
         if (err) {
             callback(err);
         } else {
