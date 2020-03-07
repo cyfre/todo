@@ -1,5 +1,5 @@
 # Todo List
-Prerequisites: Node.js (and npm), MongoDB
+Prerequisites: [Node.js](https://nodejs.org/en/), [MongoDB](https://docs.mongodb.com/manual/administration/install-community/)
 
 In the project directory:
 
